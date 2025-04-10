@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import in.ashokit.BootMvcInsuranceReportApplication;
 import in.ashokit.entity.CitizenPlan;
 import in.ashokit.search.SearchForm;
 import in.ashokit.service.IReportService;
@@ -17,8 +17,18 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class PlanController {
+
+    private final BootMvcInsuranceReportApplication bootMvcInsuranceReportApplication;
+
+	
+	
 	@Autowired
 	private IReportService serv;
+
+    PlanController(BootMvcInsuranceReportApplication bootMvcInsuranceReportApplication) {
+        this.bootMvcInsuranceReportApplication = bootMvcInsuranceReportApplication;
+    }
+
 	@GetMapping("/pdf")
 	public void excelExport(HttpServletResponse response)throws Exception {
 		response.setContentType("application/pdf"); //openpdf starter
