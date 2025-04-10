@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import in.ashokit.BootMvcInsuranceReportApplication;
 import in.ashokit.constants.ApplicationConst;
 import in.ashokit.entity.CitizenPlan;
 import in.ashokit.search.SearchForm;
@@ -18,9 +18,15 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class PlanController {
+
+    private final BootMvcInsuranceReportApplication bootMvcInsuranceReportApplication;
 	
 	@Autowired
 	private IReportService serv;
+
+    PlanController(BootMvcInsuranceReportApplication bootMvcInsuranceReportApplication) {
+        this.bootMvcInsuranceReportApplication = bootMvcInsuranceReportApplication;
+    }
 
 	@GetMapping("/pdf")
 	public void excelExport(HttpServletResponse response)throws Exception {
@@ -51,6 +57,6 @@ public class PlanController {
 		init(map);
 		List<CitizenPlan> list= serv.citizenSearch(search);
 		map.put("list", list);
-		 return "welcome";
+		 return ApplicationConst.WELCOME;
 	 }
 }
